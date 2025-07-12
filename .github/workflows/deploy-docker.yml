@@ -4,12 +4,26 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      image_name:
+        description: 'Docker image name'
+        required: true
+        default: 'aws-cli'
+
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set IMAGE_NAME variable with priority (dispatch > repo env > default)
+        run: |
+          echo "IMAGE_NAME=${{ github.event.inputs.image_name || env.IMAGE_NAME || 'aws-cli' }}" >> $GITHUB_ENV
+
+      - name: Show chosen image name
+        run: echo "Using image name $IMAGE_NAME"
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
