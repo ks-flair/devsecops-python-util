@@ -5,10 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "📦 Installing system packages..." \
  && apt-get update -qq \
  && apt-get install -qq -y --no-install-recommends \
-      bash \
-      curl \
+      jq git bash curl \
       unzip \
-      jq \
       groff \
       less \
  > /dev/null \
@@ -16,9 +14,12 @@ RUN echo "📦 Installing system packages..." \
  && rm -rf /var/lib/apt/lists/* \
  && echo "✅ Packages installed successfully."
 
+RUN pip install --no-cache-dir --break-system-packages awscli virtualenv \
+  && python -m pip install --upgrade pip \
+  && python -c "print('Virtualenv is active!')"
+
 # (Optional) Setup working directory
 WORKDIR /app
 COPY . /app
 
 CMD ["python3"]
-
