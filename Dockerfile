@@ -7,6 +7,7 @@ RUN echo "📦 Installing system packages..." \
  && apt-get install -qq -y --no-install-recommends \
       jq git bash curl \
       unzip \
+      zip \
       groff \
       less \
  > /dev/null \
