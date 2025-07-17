@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "📦 Installing system packages..." \
  && apt-get update -qq \
  && apt-get install -qq -y --no-install-recommends \
-      jq git bash curl \
+      jq bash curl \
       unzip \
       zip \
       groff \
